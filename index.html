@@ -4,9 +4,20 @@
   <meta charset="utf-8">
   <script src="d3/d3.min.js"></script>
   <title>D3 Assignment</title>
-</head>
-<body>
-  <h3 style="text-align:center">911 Emergencies</h3>
-  <script type="text/javascript" src="app.js"></script>
-</body>
-</html>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" /></head>
+  <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
+  <style media="screen">
+    #mapid { height: 100vh; }
+  </style>
+  <body style="margin:0">
+    <script type="text/javascript" src="app.js"></script>
+    <div id="mapid"></div>
+    <script type="text/javascript">
+    	var mymap = L.map('mapid').setView([37.8, -96], 4);
+      var OpenStreetMap_Mapnik = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      }).addTo(mymap);;
+    </script>
+  </body>
+  </html>
