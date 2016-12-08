@@ -1,7 +1,7 @@
 //emergency object
 function Emergency(latitude,longitude,description,zip,title,timeStamp,township,address){
-  this.latitude = latitude //float
-  this.longitude = longitude//float
+  this.latitude = parseFloat(latitude) //float
+  this.longitude = parseFloat(longitude)//float
   this.description = description//String
   this.zip = zip//String since some zips are missing
   this.title = title//string
@@ -15,17 +15,47 @@ var OpenStreetMap_Mapnik = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x
   maxZoom: 19,
   attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(mymap);;
-
+var emergencyTitles;
 d3.csv("/dataset/911.csv", function (data) {
   var Emergencies=[]
-  console.log(mymap);
-  var t0 = performance.now();
+  // var t0 = performance.now();
   for (var i=0;i<data.length;i++) {
     var emergency = new Emergency(data[i].lat,data[i].lng,data[i].desc,data[i].zip,data[i].title,data[i].timeStamp,data[i].twp,data[i].addr,data[i].e);
     Emergencies.push(emergency);
-    var marker = L.marker([parseFloat(data[i].lat),parseFloat(data[i].lng)]).addTo(mymap);
   }
-  var t1 = performance.now();
-  // console.log(Emergencies);
-  console.log("Parsing data from csv " + (t1 - t0) + " milliseconds.")
+  // var t1 = performance.now();
+  //extract emergency titles from Emergencies array of objects
+  emergencyTitles = Emergencies.map(function (emergency) {
+    return emergency.title
+  });
+  emergencyTitles = identifyEmergencies(emergencyTitles)
+  console.log(emergencyTitles)
+  // console.log("Parsing data from csv " + (t1 - t0) + " milliseconds.")
 });
+
+function identifyEmergencies(emergencyTitles) {
+  // console.log(emergencyTitles);
+
+  var emergencyCategories = emergencyTitles.map(function (emergencyTitle) {
+    // check if all titles contain ':', only false is printed so we can conclude that all the titles have an emergency type followed by a ':'
+    var searchForColon = emergencyTitle.search(RegExp(":"))
+    if(searchForColon==-1)
+    //colon not found
+      console.log(true);
+    else
+    //colon found
+      return emergencyTitle.slice(0,searchForColon);
+    // emergencyTitle.search(RegExp(":"))
+  })
+  var test=[]
+  // console.log(emergencyCategories)
+  emergencyCategories.map(function (category) {
+    // console.log(category," ",category.indexOf(category)!=-1);
+    if (test.indexOf(category)==-1) {
+      test.push(category)
+    }
+  })
+  return test;//contains all emergency categories
+
+
+}
