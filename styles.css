@@ -2,7 +2,16 @@
   height: 100vh;
 }
 
-#test {
+.emergencyCategories{
   position:absolute;
-  z-index: 999;
+  z-index: 99999;
+}
+#button_EMS{
+  top:10%;
+}
+#button_Fire{
+  top:15%;
+}
+#button_Traffic{
+  top:20%;
 }
