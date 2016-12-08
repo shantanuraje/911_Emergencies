@@ -16,17 +16,17 @@ d3.csv("/dataset/911.csv", function (data) {
   for (var i=0;i<data.length;i++){
     var emergency = new Emergency(data[i].lat,data[i].lng,data[i].desc,data[i].zip,data[i].title,data[i].timeStamp,data[i].twp,data[i].addr,data[i].e);
     Emergencies.push(emergency);
- 
+
   }
   emergencyTitles = Emergencies.map(function (emergency) {
 	    return emergency.title
 	  });
- 
+
   /*console.log("Parsing data from csv " + (t1 - t0) + " milliseconds.");*/
   emergencyS = identifyEmergencies(emergencyTitles)
   for (var emergencyTitle in emergencyTitles) {
     if (emergencyTitles.hasOwnProperty(emergencyTitle)) {
-      console.log(emergencyTitles[emergencyTitle]);
+      // console.log(emergencyTitles[emergencyTitle]);
       $("#mapid").append("<a class='waves-effect waves-light btn emergencyCategories' id='button_"+emergencyTitles[emergencyTitle]+"'>"+emergencyTitles[emergencyTitle]+"</a>")
     }
   }
@@ -57,19 +57,20 @@ function identifyEmergencies(emergencyTitles) {
 	  })
 	  return test;//contains all emergency categories
 
-	  
+
 	}
 
 function countEmergencies(emergencyTitles,emergencyS) {
 	var count=[0,0,0];
 	for(var ems in emergencyS){
 		for(var obj in emergencyTitles){
-			if(emergencyTitles[obj].includes(emergencyS[ems])){
+			if(emergencyTitles[obj].includes(emergencyS[ems]+":")){
 				count[ems]++;
 			}
 		}
-		
+
 	}
+  console.log(count);
 	return count;
 
 }
