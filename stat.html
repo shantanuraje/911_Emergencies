@@ -1,0 +1,51 @@
+<html>
+	<head>
+		<title>Simple Line Graph using SVG and d3.js</title>
+		<script src="lib/d3/d3.min.js"></script>
+		<!-- <script src="http://mbostock.github.com/d3/d3.v2.js"></script> -->
+		 <script type="text/javascript" src="lib/jquery/jquery-3.1.1.min.js"></script>
+		 <script type="text/javascript" src="dataProcess.js"></script>
+		<style>
+			/* tell the SVG path to be a thin blue line without any area fill */
+			path {
+				stroke: steelblue;
+				stroke-width: 1;
+				fill: none;
+			}
+			
+			.axis {
+			  shape-rendering: crispEdges;
+			}
+
+			.x.axis line {
+			  stroke: lightgrey;
+			}
+
+			.x.axis .minor {
+			  stroke-opacity: .5;
+			}
+
+			.x.axis path {
+			  display: none;
+			}
+
+			.y.axis line, .y.axis path {
+			  fill: none;
+			  stroke: #000;
+			}
+		</style>
+	</head>
+	<body>
+
+ 
+	<div id="graph" class="aGraph" style="position:absolute;top:0px;left:0; float:left;"></div>
+
+
+	<script>
+	
+	</script>
+
+ 
+
+	</body>
+</html>
