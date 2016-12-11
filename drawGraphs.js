@@ -35,7 +35,12 @@ function emergencyCountVsCategory(emergencyCategories, noOfEmergenciesPerCategor
   console.log(noOfEmergenciesPerCategory.map(function (d) {
     return widthScale(d);
   }))
-
+  var tooltip = d3.select("body")
+  	.append("div")
+  	.style("position", "absolute")
+  	.style("z-index", "10")
+  	.style("visibility", "hidden")
+  	.text("a simple tooltip");
   var bars = svg.selectAll("rect")
                 .data(noOfEmergenciesPerCategory)
                 .enter()
@@ -45,7 +50,12 @@ function emergencyCountVsCategory(emergencyCategories, noOfEmergenciesPerCategor
                   .attr("fill",function(d){return colorScale(d)})
                   // .attr("y",function(d,i){return heightScale(d)})
                   .attr("y",function(d,i){return (i+1)*100;})
-
+                  .on("click", function (d,i) {
+                    console.log(d,i);
+                  })
+                  .on("mouseover", function(d){tooltip.text("Count: "+d); return tooltip.style("visibility", "visible");})
+                  .on("mousemove", function(){return tooltip.style("top",(event.pageY-10)+"px").style("left",(event.pageX+10)+"px");})
+	                .on("mouseout", function(d){return tooltip.style("visibility", "hidden");})
   console.log([1,2,3].map(function(d){return heightScale(d)}));
 
 
