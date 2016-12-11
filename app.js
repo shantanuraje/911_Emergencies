@@ -10,4 +10,11 @@ d3.csv("/dataset/911.csv", function (data) {
   console.log(noOfEmergenciesPerCategory);
   //plot count of categories vs category
   emergencyCountVsCategory(emergencyCategories, noOfEmergenciesPerCategory)
+
+  emergencySubCategoriesReduced = identifyEmergencySubCategories(emergencyCategories,emergencyTitles)
+  noOfEmergenciesPerSubCategory = countEmergenciesPerSubCategory(emergencySubCategoriesReduced,emergencyTitles)
+  console.log(emergencySubCategoriesReduced);
+  console.log(noOfEmergenciesPerSubCategory);
+  // d3.select("svg").remove()
+  // emergencyCountVsCategory(emergencySubCategoriesReduced[0],noOfEmergenciesPerSubCategory[0])
 });

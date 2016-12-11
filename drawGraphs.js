@@ -52,11 +52,15 @@ function emergencyCountVsCategory(emergencyCategories, noOfEmergenciesPerCategor
                   .attr("y",function(d,i){return (i+1)*100;})
                   .on("click", function (d,i) {
                     console.log(d,i);
+                    d3.selectAll("div").remove()
+                    d3.select("svg").remove()
+                    emergencyCountVsCategory(emergencySubCategoriesReduced[0],noOfEmergenciesPerSubCategory[0])                    
+                    return
                   })
                   .on("mouseover", function(d){tooltip.text("Count: "+d); return tooltip.style("visibility", "visible");})
                   .on("mousemove", function(){return tooltip.style("top",(event.pageY-10)+"px").style("left",(event.pageX+10)+"px");})
 	                .on("mouseout", function(d){return tooltip.style("visibility", "hidden");})
-  console.log([1,2,3].map(function(d){return heightScale(d)}));
+  // console.log([1,2,3].map(function(d){return heightScale(d)}));
 
 
   svg.append("g")

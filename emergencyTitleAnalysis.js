@@ -41,3 +41,51 @@ function countEmergenciesPerCategory(emergencyCategories,emergencyTitles) {
   // console.log(count);
   return count;
 }
+
+function identifyEmergencySubCategories(emergencyCategories,emergencyTitles) {
+  var emergencySubCategories = emergencyCategories.map(function(d){return []});
+  // console.log(emergencySubCategories);
+  emergencyCategories.map(function(emergencyCategory){
+    var allEmergencySubCategories = emergencyTitles.map(function (emergencyTitle) {
+      if (emergencyTitle.includes(emergencyCategory+":")) {
+        // console.log(emergencyCategories.indexOf(emergencyCategory));
+        emergencySubCategories[emergencyCategories.indexOf(emergencyCategory)].push(emergencyTitle)
+      }
+
+    })
+  })
+  // console.log(emergencySubCategories);
+  //this section removes all duplicates, reducing all categories to unique categories present in the dataset
+  var emergencySubCategoriesReduced= emergencyCategories.map(function(d){return []});
+  // console.log(emergencySubCategoriesReduced);
+  for (var i = 0; i < emergencySubCategoriesReduced.length; i++) {
+    emergencySubCategories[i].map(function (subCategoryTitle) {
+      if (emergencySubCategoriesReduced[i].indexOf(subCategoryTitle)==-1) {
+        emergencySubCategoriesReduced[i].push(subCategoryTitle)
+      }
+    })
+  }
+  // console.log(emergencySubCategoriesReduced);
+  return emergencySubCategoriesReduced;
+}
+
+function countEmergenciesPerSubCategory(emergencySubCategoriesReduced,emergencyTitles) {
+  // console.log(emergencySubCategoriesReduced);
+  // console.log(emergencyTitles);
+  emergencySubCategoriesCount = emergencySubCategoriesReduced.map(function(subcategory){
+    return subcategory.map(function (subCategoryTitle) {
+        return 0;
+      })
+  });
+  // console.log(emergencySubCategoriesCount);
+  emergencySubCategoriesReduced.map(function (subcategory , index) {
+    subcategory.map(function (subCategoryTitle,index1) {
+      emergencyTitles.map(function (title) {
+        if (title === subCategoryTitle) {
+          emergencySubCategoriesCount[index][index1] = emergencySubCategoriesCount[index][index1]+1
+        }
+      })
+    })
+  })
+  return emergencySubCategoriesCount;
+}
