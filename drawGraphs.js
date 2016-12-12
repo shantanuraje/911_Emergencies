@@ -2,7 +2,7 @@ function emergencyCountVsCategory(emergencyCategories, noOfEmergenciesPerCategor
   console.log(emergencyCategories, noOfEmergenciesPerCategory);
   console.log(test); //absence of var makes variables global hence they are accessible here
   var width = 700,
-      height = 700;
+      height = 2000;
   //get window witdh height
   // document.documentElement.clientWidth or window.innerWidth
   var widthScale = d3.scale.linear()
@@ -47,18 +47,18 @@ function emergencyCountVsCategory(emergencyCategories, noOfEmergenciesPerCategor
                 .data(noOfEmergenciesPerCategory)
                 .enter()
                   .append("rect")
-                  .attr("height",50)
+                  .attr("height",25)
                   .attr("width",function(d){return widthScale(d)})
                   .attr("fill",function(d){return colorScale(d)})
                   // .attr("y",function(d,i){return heightScale(d)})
-                  .attr("y",function(d,i){return (i+1)*100;})
+                  .attr("y",function(d,i){return (i+1)*30;})
                   .on("click", function (d,i) {
                     console.log(d,i);
                     d3.selectAll("div").remove()
                     d3.select("svg").remove()
                     console.log(emergencySubCategoriesReduced[0],noOfEmergenciesPerSubCategory[0])
                     emergencyCountVsCategory(emergencySubCategoriesReduced[i],noOfEmergenciesPerSubCategory[i])
-                    return
+
                   })
                   .on("mouseover", function(d){tooltip.text("Count: "+d); return tooltip.style("visibility", "visible");})
                   .on("mousemove", function(){return tooltip.style("top",(event.pageY-10)+"px").style("left",(event.pageX+10)+"px");})
