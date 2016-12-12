@@ -1,6 +1,6 @@
 function emergencyCountVsCategory(emergencyCategories, noOfEmergenciesPerCategory) {
   console.log(emergencyCategories, noOfEmergenciesPerCategory);
-
+  console.log(test); //absence of var makes variables global hence they are accessible here
   var width = 700,
       height = 700;
   //get window witdh height
@@ -16,12 +16,14 @@ function emergencyCountVsCategory(emergencyCategories, noOfEmergenciesPerCategor
   var xAxis = d3.svg.axis()
                 .tickFormat(d3.format("s"))
                 .scale(widthScale);
-
+              console.log(xAxis);
   var heightScale = d3.scale.ordinal()
                       .domain(emergencyCategories)
                       .rangeBands([0,height])
 
-  var yAxis = d3.svg.axis().scale(heightScale)
+  var yAxis = d3.svg.axis()
+                    .scale(heightScale)
+
   //Create the SVG Viewport
   var svg = d3.select("body")
               .append("svg")
@@ -54,7 +56,8 @@ function emergencyCountVsCategory(emergencyCategories, noOfEmergenciesPerCategor
                     console.log(d,i);
                     d3.selectAll("div").remove()
                     d3.select("svg").remove()
-                    emergencyCountVsCategory(emergencySubCategoriesReduced[0],noOfEmergenciesPerSubCategory[0])                    
+                    console.log(emergencySubCategoriesReduced[0],noOfEmergenciesPerSubCategory[0])
+                    emergencyCountVsCategory(emergencySubCategoriesReduced[i],noOfEmergenciesPerSubCategory[i])
                     return
                   })
                   .on("mouseover", function(d){tooltip.text("Count: "+d); return tooltip.style("visibility", "visible");})

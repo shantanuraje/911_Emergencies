@@ -9,6 +9,7 @@ d3.csv("/dataset/911.csv", function (data) {
   noOfEmergenciesPerCategory = countEmergenciesPerCategory(emergencyCategories,emergencyTitles)
   console.log(noOfEmergenciesPerCategory);
   //plot count of categories vs category
+  test = "something";
   emergencyCountVsCategory(emergencyCategories, noOfEmergenciesPerCategory)
 
   emergencySubCategoriesReduced = identifyEmergencySubCategories(emergencyCategories,emergencyTitles)
