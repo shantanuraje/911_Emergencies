@@ -1,4 +1,4 @@
-d3.csv("/dataset/911.csv", function (data) {
+d3.csv("./911.csv", function (data) {
   // console.log(data);
   //get all emergency titles for analysis
   emergencyTitles = data.map(function (emergency) {return emergency.title});

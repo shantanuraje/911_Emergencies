@@ -60,7 +60,7 @@ function emergencyCountVsCategory(emergencyCategories, noOfEmergenciesPerCategor
                     emergencyCountVsCategory(emergencySubCategoriesReduced[i],noOfEmergenciesPerSubCategory[i])
 
                   })
-                  .on("mouseover", function(d){tooltip.text("Count: "+d); return tooltip.style("visibility", "visible");})
+                  .on("mouseover", function(d,i){tooltip.text(emergencyCategories[i]+": "+d); return tooltip.style("visibility", "visible");})
                   .on("mousemove", function(){return tooltip.style("top",(event.pageY-10)+"px").style("left",(event.pageX+10)+"px");})
 	                .on("mouseout", function(d){return tooltip.style("visibility", "hidden");})
   // console.log([1,2,3].map(function(d){return heightScale(d)}));
