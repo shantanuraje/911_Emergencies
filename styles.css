@@ -1,4 +1,8 @@
-.emergencyCategories{
-  position:absolute;
-  z-index: 99999;
+body{
+  margin:0;
+  overflow:hidden
+}
+.graph{
+  overflow: hidden;
+  width: 100%;
 }

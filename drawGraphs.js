@@ -1,8 +1,9 @@
 function emergencyCountVsCategory(emergencyCategories, noOfEmergenciesPerCategory) {
   console.log(emergencyCategories, noOfEmergenciesPerCategory);
   console.log(test); //absence of var makes variables global hence they are accessible here
-  var width = 700,
-      height = 2000;
+  var margin = {top: 40, right: 20, bottom: 30, left: 40},
+      width = document.documentElement.clientWidth - margin.left - margin.right,
+      height = document.documentElement.clientHeight - margin.top - margin.bottom;
   //get window witdh height
   // document.documentElement.clientWidth or window.innerWidth
   var widthScale = d3.scale.linear()
@@ -25,7 +26,7 @@ function emergencyCountVsCategory(emergencyCategories, noOfEmergenciesPerCategor
                     .scale(heightScale)
 
   //Create the SVG Viewport
-  var svg = d3.select("body")
+  var svg = d3.select(".graph")
               .append("svg")
               .attr("width",width)
               .attr("height",height)
@@ -42,19 +43,21 @@ function emergencyCountVsCategory(emergencyCategories, noOfEmergenciesPerCategor
   	.style("position", "absolute")
   	.style("z-index", "10")
   	.style("visibility", "hidden")
-  	.text("a simple tooltip");
+    // .style("top","0")
+  	.text("Catergory: count"); // place holder
   var bars = svg.selectAll("rect")
                 .data(noOfEmergenciesPerCategory)
                 .enter()
                   .append("rect")
-                  .attr("height",25)
+                  .attr("height",20)
                   .attr("width",function(d){return widthScale(d)})
                   .attr("fill",function(d){return colorScale(d)})
                   // .attr("y",function(d,i){return heightScale(d)})
-                  .attr("y",function(d,i){return (i+1)*30;})
+                  .attr("y",function(d,i){return (i+1)*23;})
                   .on("click", function (d,i) {
                     console.log(d,i);
-                    d3.selectAll("div").remove()
+                    // d3.selectAll("div").remove()
+                    tooltip.remove()
                     d3.select("svg").remove()
                     console.log(emergencySubCategoriesReduced[0],noOfEmergenciesPerSubCategory[0])
                     emergencyCountVsCategory(emergencySubCategoriesReduced[i],noOfEmergenciesPerSubCategory[i])
@@ -66,12 +69,13 @@ function emergencyCountVsCategory(emergencyCategories, noOfEmergenciesPerCategor
   // console.log([1,2,3].map(function(d){return heightScale(d)}));
 
 
-  svg.append("g")
-    .attr("transform","translate(0,"+(height-45)+")")
+  var x =svg.append("g")
+    .attr("transform","translate(0,"+(height)+")")
     .call(xAxis)
 
-  svg.append("g")
+  var y = svg.append("g")
      .attr("transform","rotate(90)")
+    //  .attr("class","yAxis")
      .call(yAxis)
   //.attr("transform","translate(0,0)")
 }
